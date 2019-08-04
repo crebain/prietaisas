@@ -1,3 +1,5 @@
+#!/bin/bash
+
 FRONT_LEFT_BACKWARD=4
 FRONT_LEFT_FORWARD=17
 FRONT_RIGHT_BACKWARD=18
@@ -79,14 +81,9 @@ stop() {
     echo 0 > /sys/class/gpio/gpio$REAR_RIGHT_FORWARD/value
 }
 
+
 export -f forward
 export -f backward
 export -f left
 export -f right
 export -f stop
-
-declare -pf forward
-declare -pf backward
-declare -pf left
-declare -pf right
-declare -pf stop
