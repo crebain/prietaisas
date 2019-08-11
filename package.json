@@ -18,5 +18,9 @@
   "homepage": "https://github.com/crebain/prietaisas#readme",
   "dependencies": {
     "pigpio": "^1.2.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "standard": "^13.1.0"
   }
 }
