@@ -1,13 +1,13 @@
-const Gpio = require('pigpio').Gpio;
+import { Gpio } from 'pigpio';
 
-const FRONT_LEFT_BACKWARD=new Gpio(4, {mode: Gpio.OUTPUT});
-const FRONT_LEFT_FORWARD=new Gpio(17, {mode: Gpio.OUTPUT});
-const FRONT_RIGHT_BACKWARD=new Gpio(18, {mode: Gpio.OUTPUT});
-const REAR_LEFT_FORWARD=new Gpio(27, {mode: Gpio.OUTPUT});
-const REAR_LEFT_BACKWARD=new Gpio(22, {mode: Gpio.OUTPUT});
-const FRONT_RIGHT_FORWARD=new Gpio(23, {mode: Gpio.OUTPUT});
-const REAR_RIGHT_BACKWARD=new Gpio(24, {mode: Gpio.OUTPUT});
-const REAR_RIGHT_FORWARD=new Gpio(25, {mode: Gpio.OUTPUT});
+const FRONT_LEFT_BACKWARD = new Gpio(4, {mode: Gpio.OUTPUT});
+const FRONT_LEFT_FORWARD = new Gpio(17, {mode: Gpio.OUTPUT});
+const FRONT_RIGHT_BACKWARD = new Gpio(18, {mode: Gpio.OUTPUT});
+const REAR_LEFT_FORWARD = new Gpio(27, {mode: Gpio.OUTPUT});
+const REAR_LEFT_BACKWARD = new Gpio(22, {mode: Gpio.OUTPUT});
+const FRONT_RIGHT_FORWARD = new Gpio(23, {mode: Gpio.OUTPUT});
+const REAR_RIGHT_BACKWARD = new Gpio(24, {mode: Gpio.OUTPUT});
+const REAR_RIGHT_FORWARD = new Gpio(25, {mode: Gpio.OUTPUT});
 
 const dutyCycle = 128;
 
