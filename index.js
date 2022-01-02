@@ -1,4 +1,4 @@
-import { Gpio } from 'pigpio';
+import * from 'rpi-gpio' as Gpio;
 
 const FRONT_LEFT_BACKWARD = new Gpio(4, {mode: Gpio.OUTPUT});
 const FRONT_LEFT_FORWARD = new Gpio(17, {mode: Gpio.OUTPUT});
