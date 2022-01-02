@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/crebain/prietaisas#readme",
   "dependencies": {
-    "pi-camera-connect": "^0.3.4"
+    "pi-camera-connect": "^0.3.4",
+    "rpi-gpio": "^2.1.7"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
