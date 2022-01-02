@@ -92,18 +92,6 @@ function fwright(speed = 255) {
     REAR_RIGHT_BACKWARD.stop();
 };
 
-// left() {
-//     echo 1 > /sys/class/gpio/gpio$FRONT_LEFT_BACKWARD/value
-//     echo 0 > /sys/class/gpio/gpio$FRONT_LEFT_FORWARD/value
-//     echo 0 > /sys/class/gpio/gpio$FRONT_RIGHT_BACKWARD/value
-//     echo 0 > /sys/class/gpio/gpio$REAR_LEFT_FORWARD/value
-//     echo 0 > /sys/class/gpio/gpio$REAR_LEFT_BACKWARD/value
-//     echo 1 > /sys/class/gpio/gpio$FRONT_RIGHT_FORWARD/value
-//     echo 0 > /sys/class/gpio/gpio$REAR_RIGHT_BACKWARD/value
-//     echo 1 > /sys/class/gpio/gpio$REAR_RIGHT_FORWARD/value
-// }
-
-
 function stop () {
     FRONT_LEFT_FORWARD.stop();
     FRONT_RIGHT_FORWARD.stop();
