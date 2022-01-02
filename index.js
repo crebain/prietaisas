@@ -1,71 +1,95 @@
-import * as Gpio from 'rpi-gpio';
+import process from 'process';
+import Gpio from 'rpio';
 
-const FRONT_LEFT_BACKWARD = new Gpio(4, {mode: Gpio.OUTPUT});
-const FRONT_LEFT_FORWARD = new Gpio(17, {mode: Gpio.OUTPUT});
-const FRONT_RIGHT_BACKWARD = new Gpio(18, {mode: Gpio.OUTPUT});
-const REAR_LEFT_FORWARD = new Gpio(27, {mode: Gpio.OUTPUT});
-const REAR_LEFT_BACKWARD = new Gpio(22, {mode: Gpio.OUTPUT});
-const FRONT_RIGHT_FORWARD = new Gpio(23, {mode: Gpio.OUTPUT});
-const REAR_RIGHT_BACKWARD = new Gpio(24, {mode: Gpio.OUTPUT});
-const REAR_RIGHT_FORWARD = new Gpio(25, {mode: Gpio.OUTPUT});
+Gpio.init({
+  close_on_exit: false,
+  mapping: 'gpio'
+});
 
-const dutyCycle = 128;
+process.on('exit', function() {
+        /* Insert any custom cleanup code here. */
+        Gpio.exit();
+});
+
+class Channel {
+  constructor(pin) {
+    this.pin = pin;
+    Gpio.open(this.pin, Gpio.OUTPUT, Gpio.LOW);
+  }
+
+  start() {
+    Gpio.write(this.pin, Gpio.HIGH);
+  }
+
+  stop() {
+    Gpio.write(this.pin, Gpio.LOW);
+  }
+}
+
+const FRONT_LEFT_BACKWARD = new Channel(4);
+const FRONT_LEFT_FORWARD = new Channel(17);
+const FRONT_RIGHT_BACKWARD = new Channel(18);
+const REAR_LEFT_FORWARD = new Channel(27);
+const REAR_LEFT_BACKWARD = new Channel(22);
+const FRONT_RIGHT_FORWARD = new Channel(23);
+const REAR_RIGHT_BACKWARD = new Channel(24);
+const REAR_RIGHT_FORWARD = new Channel(25);
 
 function forward(speed = 255) {
-    FRONT_LEFT_BACKWARD.pwmWrite(0);
-    FRONT_RIGHT_BACKWARD.pwmWrite(0);
-    REAR_LEFT_BACKWARD.pwmWrite(0);
-    REAR_RIGHT_BACKWARD.pwmWrite(0);
+    FRONT_LEFT_BACKWARD.stop();
+    FRONT_RIGHT_BACKWARD.stop();
+    REAR_LEFT_BACKWARD.stop();
+    REAR_RIGHT_BACKWARD.stop();
 
-    FRONT_LEFT_FORWARD.pwmWrite(speed);
-    FRONT_RIGHT_FORWARD.pwmWrite(speed);
-    REAR_LEFT_FORWARD.pwmWrite(speed);
-    REAR_RIGHT_FORWARD.pwmWrite(speed);
+    FRONT_LEFT_FORWARD.start();
+    FRONT_RIGHT_FORWARD.start();
+    REAR_LEFT_FORWARD.start();
+    REAR_RIGHT_FORWARD.start();
 };
 
 function backward(speed = 255) {
-    FRONT_LEFT_FORWARD.pwmWrite(0);
-    FRONT_RIGHT_FORWARD.pwmWrite(0);
-    REAR_LEFT_FORWARD.pwmWrite(0);
-    REAR_RIGHT_FORWARD.pwmWrite(0);
+    FRONT_LEFT_FORWARD.stop();
+    FRONT_RIGHT_FORWARD.stop();
+    REAR_LEFT_FORWARD.stop();
+    REAR_RIGHT_FORWARD.stop();
 
-    FRONT_LEFT_BACKWARD.pwmWrite(speed);
-    FRONT_RIGHT_BACKWARD.pwmWrite(speed);
-    REAR_LEFT_BACKWARD.pwmWrite(speed);
-    REAR_RIGHT_BACKWARD.pwmWrite(speed);
+    FRONT_LEFT_BACKWARD.start();
+    FRONT_RIGHT_BACKWARD.start();
+    REAR_LEFT_BACKWARD.start();
+    REAR_RIGHT_BACKWARD.start();
 };
 
 function left(speed = 255) {
-    FRONT_LEFT_FORWARD.pwmWrite(0);
-    FRONT_RIGHT_FORWARD.pwmWrite(Math.floor(speed/2));
-    REAR_LEFT_FORWARD.pwmWrite(0);
-    REAR_RIGHT_FORWARD.pwmWrite(speed);
-    FRONT_LEFT_BACKWARD.pwmWrite(speed);
-    FRONT_RIGHT_BACKWARD.pwmWrite(0);
-    REAR_LEFT_BACKWARD.pwmWrite(0);
-    REAR_RIGHT_BACKWARD.pwmWrite(0);
+    FRONT_LEFT_FORWARD.stop();
+//    FRONT_RIGHT_FORWARD.pwmWrite(Math.floor(speed/2));
+    REAR_LEFT_FORWARD.stop();
+    REAR_RIGHT_FORWARD.start();
+    FRONT_LEFT_BACKWARD.start();
+    FRONT_RIGHT_BACKWARD.stop();
+    REAR_LEFT_BACKWARD.stop();
+    REAR_RIGHT_BACKWARD.stop();
 };
 
 function right(speed = 255) {
-    FRONT_LEFT_FORWARD.pwmWrite(Math.floor(speed/2));
-    FRONT_RIGHT_FORWARD.pwmWrite(0);
-    REAR_LEFT_FORWARD.pwmWrite(speed);
-    REAR_RIGHT_FORWARD.pwmWrite(0);
-    FRONT_LEFT_BACKWARD.pwmWrite(0);
-    FRONT_RIGHT_BACKWARD.pwmWrite(speed);
-    REAR_LEFT_BACKWARD.pwmWrite(0);
-    REAR_RIGHT_BACKWARD.pwmWrite(0);
+//    FRONT_LEFT_FORWARD.pwmWrite(Math.floor(speed/2));
+    FRONT_RIGHT_FORWARD.stop();
+    REAR_LEFT_FORWARD.start();
+    REAR_RIGHT_FORWARD.stop();
+    FRONT_LEFT_BACKWARD.stop();
+    FRONT_RIGHT_BACKWARD.start();
+    REAR_LEFT_BACKWARD.stop();
+    REAR_RIGHT_BACKWARD.stop();
 };
 
 function fwright(speed = 255) {
-    FRONT_LEFT_FORWARD.pwmWrite(Math.floor(speed*.75));
-    FRONT_RIGHT_FORWARD.pwmWrite(Math.floor(0));
-    REAR_LEFT_FORWARD.pwmWrite(Math.floor(speed));
-    REAR_RIGHT_FORWARD.pwmWrite(Math.floor(speed/2*.75));
-    FRONT_LEFT_BACKWARD.pwmWrite(0);
-    FRONT_RIGHT_BACKWARD.pwmWrite(0);
-    REAR_LEFT_BACKWARD.pwmWrite(0);
-    REAR_RIGHT_BACKWARD.pwmWrite(0);
+//    FRONT_LEFT_FORWARD.pwmWrite(Math.floor(speed*.75));
+//    FRONT_RIGHT_FORWARD.pwmWrite(Math.floor(0));
+//    REAR_LEFT_FORWARD.pwmWrite(Math.floor(speed));
+//    REAR_RIGHT_FORWARD.pwmWrite(Math.floor(speed/2*.75));
+    FRONT_LEFT_BACKWARD.stop();
+    FRONT_RIGHT_BACKWARD.stop();
+    REAR_LEFT_BACKWARD.stop();
+    REAR_RIGHT_BACKWARD.stop();
 };
 
 // left() {
@@ -81,15 +105,15 @@ function fwright(speed = 255) {
 
 
 function stop () {
-    FRONT_LEFT_FORWARD.pwmWrite(0);
-    FRONT_RIGHT_FORWARD.pwmWrite(0);
-    REAR_LEFT_FORWARD.pwmWrite(0);
-    REAR_RIGHT_FORWARD.pwmWrite(0);
+    FRONT_LEFT_FORWARD.stop();
+    FRONT_RIGHT_FORWARD.stop();
+    REAR_LEFT_FORWARD.stop();
+    REAR_RIGHT_FORWARD.stop();
 
-    FRONT_LEFT_BACKWARD.pwmWrite(0);
-    FRONT_RIGHT_BACKWARD.pwmWrite(0);
-    REAR_LEFT_BACKWARD.pwmWrite(0);
-    REAR_RIGHT_BACKWARD.pwmWrite(0);
+    FRONT_LEFT_BACKWARD.stop();
+    FRONT_RIGHT_BACKWARD.stop();
+    REAR_LEFT_BACKWARD.stop();
+    REAR_RIGHT_BACKWARD.stop();
 };
 
 
