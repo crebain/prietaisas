@@ -28,7 +28,7 @@ class Channel {
 
 const FRONT_LEFT_BACKWARD = new Channel(4);
 const FRONT_LEFT_FORWARD = new Channel(17);
-const FRONT_RIGHT_BACKWARD = new Channel(18);
+const FRONT_RIGHT_BACKWARD = new Channel(5);
 const REAR_LEFT_FORWARD = new Channel(27);
 const REAR_LEFT_BACKWARD = new Channel(22);
 const FRONT_RIGHT_FORWARD = new Channel(23);
@@ -105,7 +105,7 @@ function stop () {
 };
 
 
-backward();
+forward();
 
 setTimeout(() => {
     stop();
