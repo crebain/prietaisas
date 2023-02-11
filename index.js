@@ -1,5 +1,7 @@
 import process from 'process';
 import Gpio from 'rpio';
+import i2c from 'i2c-bus';
+import MPU6050 from 'i2c-mpu6050';
 
 Gpio.init({
   close_on_exit: false,
@@ -10,6 +12,21 @@ process.on('exit', function() {
         /* Insert any custom cleanup code here. */
         Gpio.exit();
 });
+
+const address = 0x68;
+const i2c1 = i2c.openSync(1);
+const sensor = new MPU6050(i2c1, address);
+let accel = sensor.readAccelSync();
+let gyro = sensor.readGyroSync();
+sensor.calibrateAccel(accel);
+sensor.calibrateGyro(gyro);
+
+while (true) {
+  accel = sensor.readAccelSync();
+  console.log(accel);
+  gyro = sensor.readGyroSync();
+  console.log(gyro);
+}
 
 class Channel {
   constructor(pin) {
