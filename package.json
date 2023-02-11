@@ -21,5 +21,8 @@
   "dependencies": {
     "pi-camera-connect": "^0.3.4",
     "rpio": "^2.4.2"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
