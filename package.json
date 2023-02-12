@@ -2,7 +2,7 @@
   "name": "prietaisas",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dmp.js",
   "type": "module",
   "scripts": {
     "start": "node ./index.js",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/crebain/prietaisas#readme",
   "dependencies": {
+    "@ros2jsguy/mpu6050-motion-data": "^0.2.1",
     "i2c-bus": "^5.2.2",
     "i2c-mpu6050": "^2.3.0",
     "mpu6050-dmp": "^0.0.6",
@@ -27,5 +28,8 @@
   },
   "engines": {
     "node": "16.x"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5"
   }
 }
