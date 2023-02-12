@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node --no-expose-wasm ./index.js",
+    "start": "node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +21,7 @@
   "dependencies": {
     "i2c-bus": "^5.2.2",
     "i2c-mpu6050": "^2.3.0",
+    "mpu6050-dmp": "^0.0.6",
     "pi-camera-connect": "^0.3.4",
     "rpio": "^2.4.2"
   },
