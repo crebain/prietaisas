@@ -81,7 +81,7 @@ stop() {
     echo 0 > /sys/class/gpio/gpio$REAR_RIGHT_FORWARD/value
 }
 
-strafe_left() {
+strafe_right() {
     echo 1 > /sys/class/gpio/gpio$FRONT_LEFT_FORWARD/value
     echo 0 > /sys/class/gpio/gpio$FRONT_LEFT_BACKWARD/value
     echo 0 > /sys/class/gpio/gpio$REAR_LEFT_FORWARD/value
@@ -92,7 +92,7 @@ strafe_left() {
     echo 0 > /sys/class/gpio/gpio$REAR_RIGHT_BACKWARD/value
 }
 
-strafe_right() {
+strafe_left() {
     echo 0 > /sys/class/gpio/gpio$FRONT_LEFT_FORWARD/value
     echo 1 > /sys/class/gpio/gpio$FRONT_LEFT_BACKWARD/value
     echo 1 > /sys/class/gpio/gpio$REAR_LEFT_FORWARD/value
