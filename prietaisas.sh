@@ -17,6 +17,7 @@ echo $REAR_LEFT_BACKWARD > /sys/class/gpio/export
 echo $FRONT_RIGHT_FORWARD > /sys/class/gpio/export
 echo $REAR_RIGHT_BACKWARD > /sys/class/gpio/export
 echo $REAR_RIGHT_FORWARD > /sys/class/gpio/export
+
 echo out > /sys/class/gpio/gpio$FRONT_LEFT_BACKWARD/direction
 echo out > /sys/class/gpio/gpio$FRONT_LEFT_FORWARD/direction
 echo out > /sys/class/gpio/gpio$FRONT_RIGHT_BACKWARD/direction
@@ -25,6 +26,15 @@ echo out > /sys/class/gpio/gpio$REAR_LEFT_BACKWARD/direction
 echo out > /sys/class/gpio/gpio$FRONT_RIGHT_FORWARD/direction
 echo out > /sys/class/gpio/gpio$REAR_RIGHT_BACKWARD/direction
 echo out > /sys/class/gpio/gpio$REAR_RIGHT_FORWARD/direction
+
+echo 1 > /sys/class/gpio/gpio$FRONT_LEFT_BACKWARD/active_low
+echo 1 > /sys/class/gpio/gpio$FRONT_LEFT_FORWARD/active_low
+echo 1 > /sys/class/gpio/gpio$FRONT_RIGHT_BACKWARD/active_low
+echo 1 > /sys/class/gpio/gpio$REAR_LEFT_FORWARD/active_low
+echo 1 > /sys/class/gpio/gpio$REAR_LEFT_BACKWARD/active_low
+echo 1 > /sys/class/gpio/gpio$FRONT_RIGHT_FORWARD/active_low
+echo 1 > /sys/class/gpio/gpio$REAR_RIGHT_BACKWARD/active_low
+echo 1 > /sys/class/gpio/gpio$REAR_RIGHT_FORWARD/active_low
 
 forward() {
     echo 1 > /sys/class/gpio/gpio$FRONT_LEFT_FORWARD/value
