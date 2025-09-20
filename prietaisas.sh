@@ -87,7 +87,7 @@ rotate_left() {
     pinctrl set $REAR_LEFT_BACKWARD dh
 }
 
-raotate_right() {
+rotate_right() {
     pinctrl set $FRONT_LEFT_FORWARD dh
     pinctrl set $FRONT_LEFT_BACKWARD dl
     pinctrl set $FRONT_RIGHT_FORWARD dl
