@@ -1,24 +1,6 @@
 #!/bin/bash
 
-FRONT_LEFT_BACKWARD=4
-FRONT_LEFT_FORWARD=17
-FRONT_RIGHT_BACKWARD=5
-REAR_LEFT_FORWARD=27
-REAR_LEFT_BACKWARD=22
-FRONT_RIGHT_FORWARD=23
-REAR_RIGHT_BACKWARD=24
-REAR_RIGHT_FORWARD=25
-
-
-pinctrl set $FRONT_LEFT_FORWARD op pd dl
-pinctrl set $FRONT_LEFT_BACKWARD op pd dl
-pinctrl set $FRONT_RIGHT_FORWARD op pd dl
-pinctrl set $FRONT_RIGHT_BACKWARD op pd dl
-pinctrl set $REAR_RIGHT_FORWARD op pd dl
-pinctrl set $REAR_RIGHT_BACKWARD op pd dl
-pinctrl set $REAR_LEFT_FORWARD op pd dl
-pinctrl set $REAR_LEFT_BACKWARD op pd dl
-
+source ./init.sh
 
 # echo $FRONT_LEFT_BACKWARD > /sys/class/gpio/export
 # echo $FRONT_LEFT_FORWARD > /sys/class/gpio/export
