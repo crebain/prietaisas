@@ -56,6 +56,28 @@ backward() {
 
 left() {
     pinctrl set $FRONT_LEFT_FORWARD dl
+    pinctrl set $FRONT_LEFT_BACKWARD dl
+    pinctrl set $FRONT_RIGHT_FORWARD dh
+    pinctrl set $FRONT_RIGHT_BACKWARD dl
+    pinctrl set $REAR_RIGHT_FORWARD dh
+    pinctrl set $REAR_RIGHT_BACKWARD dl
+    pinctrl set $REAR_LEFT_FORWARD dl
+    pinctrl set $REAR_LEFT_BACKWARD dl
+}
+
+right() {
+    pinctrl set $FRONT_LEFT_FORWARD dh
+    pinctrl set $FRONT_LEFT_BACKWARD dl
+    pinctrl set $FRONT_RIGHT_FORWARD dl
+    pinctrl set $FRONT_RIGHT_BACKWARD dl
+    pinctrl set $REAR_RIGHT_FORWARD dl
+    pinctrl set $REAR_RIGHT_BACKWARD dl
+    pinctrl set $REAR_LEFT_FORWARD dh
+    pinctrl set $REAR_LEFT_BACKWARD dl
+}
+
+rotate_left() {
+    pinctrl set $FRONT_LEFT_FORWARD dl
     pinctrl set $FRONT_LEFT_BACKWARD dh
     pinctrl set $FRONT_RIGHT_FORWARD dh
     pinctrl set $FRONT_RIGHT_BACKWARD dl
@@ -65,7 +87,7 @@ left() {
     pinctrl set $REAR_LEFT_BACKWARD dh
 }
 
-right() {
+raotate_right() {
     pinctrl set $FRONT_LEFT_FORWARD dh
     pinctrl set $FRONT_LEFT_BACKWARD dl
     pinctrl set $FRONT_RIGHT_FORWARD dl
@@ -104,6 +126,8 @@ export -f forward
 export -f backward
 export -f left
 export -f right
+export -f rotate_left
+export -f rotate_right
 export -f stop
 export -f strafe_left
 export -f strafe_right
