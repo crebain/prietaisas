@@ -1,150 +1,105 @@
 #!/bin/bash
 
-source ./init.sh
+FRONT_LEFT_BACKWARD=4
+FRONT_LEFT_FORWARD=17
+FRONT_RIGHT_BACKWARD=5
+REAR_LEFT_FORWARD=27
+REAR_LEFT_BACKWARD=22
+FRONT_RIGHT_FORWARD=23
+REAR_RIGHT_BACKWARD=24
+REAR_RIGHT_FORWARD=25
 
-# echo $FRONT_LEFT_BACKWARD > /sys/class/gpio/export
-# echo $FRONT_LEFT_FORWARD > /sys/class/gpio/export
-# echo $FRONT_RIGHT_BACKWARD > /sys/class/gpio/export
-# echo $REAR_LEFT_FORWARD > /sys/class/gpio/export
-# echo $REAR_LEFT_BACKWARD > /sys/class/gpio/export
-# echo $FRONT_RIGHT_FORWARD > /sys/class/gpio/export
-# echo $REAR_RIGHT_BACKWARD > /sys/class/gpio/export
-# echo $REAR_RIGHT_FORWARD > /sys/class/gpio/export
+init() {
+    pinctrl set $FRONT_LEFT_FORWARD op pd dl
+    pinctrl set $FRONT_LEFT_BACKWARD op pd dl
+    pinctrl set $FRONT_RIGHT_FORWARD op pd dl
+    pinctrl set $FRONT_RIGHT_BACKWARD op pd dl
+    pinctrl set $REAR_RIGHT_FORWARD op pd dl
+    pinctrl set $REAR_RIGHT_BACKWARD op pd dl
+    pinctrl set $REAR_LEFT_FORWARD op pd dl
+    pinctrl set $REAR_LEFT_BACKWARD op pd dl
+}
 
-# echo out > /sys/class/gpio/gpio$FRONT_LEFT_BACKWARD/direction
-# echo out > /sys/class/gpio/gpio$FRONT_LEFT_FORWARD/direction
-# echo out > /sys/class/gpio/gpio$FRONT_RIGHT_BACKWARD/direction
-# echo out > /sys/class/gpio/gpio$REAR_LEFT_FORWARD/direction
-# echo out > /sys/class/gpio/gpio$REAR_LEFT_BACKWARD/direction
-# echo out > /sys/class/gpio/gpio$FRONT_RIGHT_FORWARD/direction
-# echo out > /sys/class/gpio/gpio$REAR_RIGHT_BACKWARD/direction
-# echo out > /sys/class/gpio/gpio$REAR_RIGHT_FORWARD/direction
-
-# echo 1 > /sys/class/gpio/gpio$FRONT_LEFT_BACKWARD/active_low
-# echo 1 > /sys/class/gpio/gpio$FRONT_LEFT_FORWARD/active_low
-# echo 1 > /sys/class/gpio/gpio$FRONT_RIGHT_BACKWARD/active_low
-# echo 1 > /sys/class/gpio/gpio$REAR_LEFT_FORWARD/active_low
-# echo 1 > /sys/class/gpio/gpio$REAR_LEFT_BACKWARD/active_low
-# echo 1 > /sys/class/gpio/gpio$FRONT_RIGHT_FORWARD/active_low
-# echo 1 > /sys/class/gpio/gpio$REAR_RIGHT_BACKWARD/active_low
-# echo 1 > /sys/class/gpio/gpio$REAR_RIGHT_FORWARD/active_low
+stop() {
+    pinctrl set $FRONT_LEFT_FORWARD dl
+    pinctrl set $FRONT_LEFT_BACKWARD dl
+    pinctrl set $FRONT_RIGHT_FORWARD dl
+    pinctrl set $FRONT_RIGHT_BACKWARD dl
+    pinctrl set $REAR_RIGHT_FORWARD dl
+    pinctrl set $REAR_RIGHT_BACKWARD dl
+    pinctrl set $REAR_LEFT_FORWARD dl
+    pinctrl set $REAR_LEFT_BACKWARD dl
+}
 
 forward() {
-    # echo 1 > /sys/class/gpio/gpio$FRONT_LEFT_FORWARD/value
-    # echo 0 > /sys/class/gpio/gpio$FRONT_LEFT_BACKWARD/value
-    # echo 1 > /sys/class/gpio/gpio$FRONT_RIGHT_FORWARD/value
-    # echo 0 > /sys/class/gpio/gpio$FRONT_RIGHT_BACKWARD/value
-    # echo 1 > /sys/class/gpio/gpio$REAR_RIGHT_FORWARD/value
-    # echo 0 > /sys/class/gpio/gpio$REAR_RIGHT_BACKWARD/value
-    # echo 1 > /sys/class/gpio/gpio$REAR_LEFT_FORWARD/value
-    # echo 0 > /sys/class/gpio/gpio$REAR_LEFT_BACKWARD/value
-    pinctrl set $FRONT_LEFT_FORWARD op dh
-    pinctrl set $FRONT_LEFT_BACKWARD op dl
-    pinctrl set $FRONT_RIGHT_FORWARD op dh
-    pinctrl set $FRONT_RIGHT_BACKWARD op dl
-    pinctrl set $REAR_RIGHT_FORWARD op dh
-    pinctrl set $REAR_RIGHT_BACKWARD op dl
-    pinctrl set $REAR_LEFT_FORWARD op dh
-    pinctrl set $REAR_LEFT_BACKWARD op dl
+    pinctrl set $FRONT_LEFT_FORWARD dh
+    pinctrl set $FRONT_LEFT_BACKWARD dl
+    pinctrl set $FRONT_RIGHT_FORWARD dh
+    pinctrl set $FRONT_RIGHT_BACKWARD dl
+    pinctrl set $REAR_RIGHT_FORWARD dh
+    pinctrl set $REAR_RIGHT_BACKWARD dl
+    pinctrl set $REAR_LEFT_FORWARD dh
+    pinctrl set $REAR_LEFT_BACKWARD dl
 }
 
 backward() {
-    # echo 0 > /sys/class/gpio/gpio$FRONT_LEFT_FORWARD/value
-    # echo 1 > /sys/class/gpio/gpio$FRONT_LEFT_BACKWARD/value
-    # echo 0 > /sys/class/gpio/gpio$FRONT_RIGHT_FORWARD/value
-    # echo 1 > /sys/class/gpio/gpio$FRONT_RIGHT_BACKWARD/value
-    # echo 0 > /sys/class/gpio/gpio$REAR_RIGHT_FORWARD/value
-    # echo 1 > /sys/class/gpio/gpio$REAR_RIGHT_BACKWARD/value
-    # echo 0 > /sys/class/gpio/gpio$REAR_LEFT_FORWARD/value
-    # echo 1 > /sys/class/gpio/gpio$REAR_LEFT_BACKWARD/value
-    pinctrl set $FRONT_LEFT_FORWARD op dl
-    pinctrl set $FRONT_LEFT_BACKWARD op dh
-    pinctrl set $FRONT_RIGHT_FORWARD op dl
-    pinctrl set $FRONT_RIGHT_BACKWARD op dh
-    pinctrl set $REAR_RIGHT_FORWARD op dl
-    pinctrl set $REAR_RIGHT_BACKWARD op dh
-    pinctrl set $REAR_LEFT_FORWARD op dl
-    pinctrl set $REAR_LEFT_BACKWARD op dh
+    pinctrl set $FRONT_LEFT_FORWARD dl
+    pinctrl set $FRONT_LEFT_BACKWARD dh
+    pinctrl set $FRONT_RIGHT_FORWARD dl
+    pinctrl set $FRONT_RIGHT_BACKWARD dh
+    pinctrl set $REAR_RIGHT_FORWARD dl
+    pinctrl set $REAR_RIGHT_BACKWARD dh
+    pinctrl set $REAR_LEFT_FORWARD dl
+    pinctrl set $REAR_LEFT_BACKWARD dh
 
 }
 
 left() {
-    # echo 0 > /sys/class/gpio/gpio$FRONT_LEFT_FORWARD/value
-    # echo 1 > /sys/class/gpio/gpio$FRONT_LEFT_BACKWARD/value
-    # echo 1 > /sys/class/gpio/gpio$FRONT_RIGHT_FORWARD/value
-    # echo 0 > /sys/class/gpio/gpio$FRONT_RIGHT_BACKWARD/value
-    # echo 1 > /sys/class/gpio/gpio$REAR_RIGHT_FORWARD/value
-    # echo 0 > /sys/class/gpio/gpio$REAR_RIGHT_BACKWARD/value
-    # echo 0 > /sys/class/gpio/gpio$REAR_LEFT_FORWARD/value
-    # echo 1 > /sys/class/gpio/gpio$REAR_LEFT_BACKWARD/value
-    pinctrl set $FRONT_LEFT_FORWARD op dl
-    pinctrl set $FRONT_LEFT_BACKWARD op dh
-    pinctrl set $FRONT_RIGHT_FORWARD op dh
-    pinctrl set $FRONT_RIGHT_BACKWARD op dl
-    pinctrl set $REAR_RIGHT_FORWARD op dh
-    pinctrl set $REAR_RIGHT_BACKWARD op dl
-    pinctrl set $REAR_LEFT_FORWARD op dl
-    pinctrl set $REAR_LEFT_BACKWARD op dh
+    pinctrl set $FRONT_LEFT_FORWARD dl
+    pinctrl set $FRONT_LEFT_BACKWARD dh
+    pinctrl set $FRONT_RIGHT_FORWARD dh
+    pinctrl set $FRONT_RIGHT_BACKWARD dl
+    pinctrl set $REAR_RIGHT_FORWARD dh
+    pinctrl set $REAR_RIGHT_BACKWARD dl
+    pinctrl set $REAR_LEFT_FORWARD dl
+    pinctrl set $REAR_LEFT_BACKWARD dh
 }
 
 right() {
-    # echo 1 > /sys/class/gpio/gpio$FRONT_LEFT_FORWARD/value
-    # echo 0 > /sys/class/gpio/gpio$FRONT_LEFT_BACKWARD/value
-    # echo 0 > /sys/class/gpio/gpio$FRONT_RIGHT_FORWARD/value
-    # echo 1 > /sys/class/gpio/gpio$FRONT_RIGHT_BACKWARD/value
-    # echo 0 > /sys/class/gpio/gpio$REAR_RIGHT_FORWARD/value
-    # echo 1 > /sys/class/gpio/gpio$REAR_RIGHT_BACKWARD/value
-    # echo 1 > /sys/class/gpio/gpio$REAR_LEFT_FORWARD/value
-    # echo 0 > /sys/class/gpio/gpio$REAR_LEFT_BACKWARD/value
-    pinctrl set $FRONT_LEFT_FORWARD op dh
-    pinctrl set $FRONT_LEFT_BACKWARD op dl
-    pinctrl set $FRONT_RIGHT_FORWARD op dl
-    pinctrl set $FRONT_RIGHT_BACKWARD op dh
-    pinctrl set $REAR_RIGHT_FORWARD op dl
-    pinctrl set $REAR_RIGHT_BACKWARD op dh
-    pinctrl set $REAR_LEFT_FORWARD op dh
-    pinctrl set $REAR_LEFT_BACKWARD op dl
+    pinctrl set $FRONT_LEFT_FORWARD dh
+    pinctrl set $FRONT_LEFT_BACKWARD dl
+    pinctrl set $FRONT_RIGHT_FORWARD dl
+    pinctrl set $FRONT_RIGHT_BACKWARD dh
+    pinctrl set $REAR_RIGHT_FORWARD dl
+    pinctrl set $REAR_RIGHT_BACKWARD dh
+    pinctrl set $REAR_LEFT_FORWARD dh
+    pinctrl set $REAR_LEFT_BACKWARD dl
 }
 
 strafe_right() {
-    # echo 1 > /sys/class/gpio/gpio$FRONT_LEFT_FORWARD/value
-    # echo 0 > /sys/class/gpio/gpio$FRONT_LEFT_BACKWARD/value
-    # echo 0 > /sys/class/gpio/gpio$FRONT_RIGHT_FORWARD/value
-    # echo 1 > /sys/class/gpio/gpio$FRONT_RIGHT_BACKWARD/value
-    # echo 1 > /sys/class/gpio/gpio$REAR_RIGHT_FORWARD/value
-    # echo 0 > /sys/class/gpio/gpio$REAR_RIGHT_BACKWARD/value
-    # echo 0 > /sys/class/gpio/gpio$REAR_LEFT_FORWARD/value
-    # echo 1 > /sys/class/gpio/gpio$REAR_LEFT_BACKWARD/value
-    pinctrl set $FRONT_LEFT_FORWARD op dh
-    pinctrl set $FRONT_LEFT_BACKWARD op dl
-    pinctrl set $FRONT_RIGHT_FORWARD op dl
-    pinctrl set $FRONT_RIGHT_BACKWARD op dh
-    pinctrl set $REAR_RIGHT_FORWARD op dh
-    pinctrl set $REAR_RIGHT_BACKWARD op dl
-    pinctrl set $REAR_LEFT_FORWARD op dl
-    pinctrl set $REAR_LEFT_BACKWARD op dh
+    pinctrl set $FRONT_LEFT_FORWARD dh
+    pinctrl set $FRONT_LEFT_BACKWARD dl
+    pinctrl set $FRONT_RIGHT_FORWARD dl
+    pinctrl set $FRONT_RIGHT_BACKWARD dh
+    pinctrl set $REAR_RIGHT_FORWARD dh
+    pinctrl set $REAR_RIGHT_BACKWARD dl
+    pinctrl set $REAR_LEFT_FORWARD dl
+    pinctrl set $REAR_LEFT_BACKWARD dh
 }
 
 strafe_left() {
-    # echo 0 > /sys/class/gpio/gpio$FRONT_LEFT_FORWARD/value
-    # echo 1 > /sys/class/gpio/gpio$FRONT_LEFT_BACKWARD/value
-    # echo 1 > /sys/class/gpio/gpio$FRONT_RIGHT_FORWARD/value
-    # echo 0 > /sys/class/gpio/gpio$FRONT_RIGHT_BACKWARD/value
-    # echo 0 > /sys/class/gpio/gpio$REAR_RIGHT_FORWARD/value
-    # echo 1 > /sys/class/gpio/gpio$REAR_RIGHT_BACKWARD/value
-    # echo 1 > /sys/class/gpio/gpio$REAR_LEFT_FORWARD/value
-    # echo 0 > /sys/class/gpio/gpio$REAR_LEFT_BACKWARD/value
-    pinctrl set $FRONT_LEFT_FORWARD op dl
-    pinctrl set $FRONT_LEFT_BACKWARD op dh
-    pinctrl set $FRONT_RIGHT_FORWARD op dh
-    pinctrl set $FRONT_RIGHT_BACKWARD op dl
-    pinctrl set $REAR_RIGHT_FORWARD op dl
-    pinctrl set $REAR_RIGHT_BACKWARD op dh
-    pinctrl set $REAR_LEFT_FORWARD op dh
-    pinctrl set $REAR_LEFT_BACKWARD op dl
+    pinctrl set $FRONT_LEFT_FORWARD dl
+    pinctrl set $FRONT_LEFT_BACKWARD dh
+    pinctrl set $FRONT_RIGHT_FORWARD dh
+    pinctrl set $FRONT_RIGHT_BACKWARD dl
+    pinctrl set $REAR_RIGHT_FORWARD dl
+    pinctrl set $REAR_RIGHT_BACKWARD dh
+    pinctrl set $REAR_LEFT_FORWARD dh
+    pinctrl set $REAR_LEFT_BACKWARD dl
 }
 
 
+export -f init
 export -f forward
 export -f backward
 export -f left
